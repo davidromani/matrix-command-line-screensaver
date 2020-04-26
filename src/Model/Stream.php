@@ -50,7 +50,7 @@ class Stream
     public function buildStream(): self
     {
         for ($i = 0; $i <= $this->length; $i++) {
-            $this->addCharacter(mb_chr(rand(33, 126), 'UTF-8'));
+            $this->addCharacter($this->getRandomCharacter());
         }
 
         return $this;
@@ -75,8 +75,23 @@ class Stream
         return $this;
     }
 
+    public function moveStringDown(): self
+    {
+        $newStringTailChar = $this->getRandomCharacter();
+        $this->addCharacter($newStringTailChar);
+        $this->position->setY($this->position->getY() + 1);
+        array_shift($this->string);
+
+        return $this;
+    }
+
     public function __toString(): string
     {
         return implode('', $this->string);
+    }
+
+    private function getRandomCharacter(): string
+    {
+        return mb_chr(rand(33, 126), 'UTF-8');
     }
 }

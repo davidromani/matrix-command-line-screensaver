@@ -96,9 +96,7 @@ class ScreenManager
     {
         /** @var Stream $stream */
         foreach ($this->sm->getStreams() as $stream) {
-            $currentStreamCoordinates = $stream->getPosition();
-            $currentStreamCoordinates->setY($currentStreamCoordinates->getY() + 1);
-            $stream->setPosition($currentStreamCoordinates);
+            $stream->moveStringDown();
         }
     }
 }
