@@ -30,7 +30,7 @@ class TestCommand extends Command
 
         $cursor->moveToPosition(1, 0);
         $output->writeLn('Current Teminal size '. $terminalCoordinates);
-        $cursor->moveToPosition(1, 20);
+        $cursor->moveToPosition(1, $terminalCoordinates->getY() - 2);
         $cursorCoordinates = Coordinate::buildFromArray($cursor->getCurrentPosition());
         $output->writeLn('Current Cursor coordinates '. $cursorCoordinates);
 
