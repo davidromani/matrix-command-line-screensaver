@@ -45,13 +45,16 @@ class MatrixCommand extends Command
         $cursor = new Cursor($output);
         $cursor->clearScreen();
 
-        for ($y = 0; $y <= $this->screenManager->getScreenHeight(); $y++) {
-            for ($x = 0; $x <= $this->screenManager->getScreenWidth(); $x++) {
-                $cursor->moveToPosition($x, $y);
-                $output->write($y);
-                usleep(self::MICRO_WAIT);
-            }
-        }
+//        for ($y = 0; $y <= ($this->screenManager->getScreenHeight() / 2); $y++) {
+//            for ($x = 0; $x <= ($this->screenManager->getScreenWidth() / 2); $x++) {
+//                $cursor->moveToPosition($x, $y);
+//                $output->write($y);
+//                usleep(self::MICRO_WAIT);
+//            }
+//        }
+
+        $cursor->moveToPosition(1, $this->screenManager->getScreenHeight() - 2);
+        $output->writeLn('Stream: '.$this->screenManager->getStream());
 
         return Command::SUCCESS;
     }

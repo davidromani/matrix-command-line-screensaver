@@ -4,7 +4,8 @@ namespace App\Model;
 
 class Stream
 {
-    const MAX_LENGTH = 10;
+    const MIN_LENGTH = 5;
+    const MAX_LENGTH = 30;
 
     private int $length;
     private array $string;
@@ -15,7 +16,7 @@ class Stream
 
     public function __construct()
     {
-        $this->length = rand(1, self::MAX_LENGTH);
+        $this->length = rand(self::MIN_LENGTH, self::MAX_LENGTH);
         $this->string = [];
         $this->buildStream();
     }
@@ -58,5 +59,10 @@ class Stream
         $this->string[] = $character;
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return implode('', $this->string);
     }
 }

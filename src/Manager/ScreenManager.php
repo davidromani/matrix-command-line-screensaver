@@ -3,10 +3,12 @@
 namespace App\Manager;
 
 use App\Model\Coordinate;
+use App\Model\Stream;
 
 class ScreenManager
 {
     private Coordinate $size;
+    private Stream $stream;
 
     /**
      * Methods
@@ -15,6 +17,7 @@ class ScreenManager
     public function __construct(Coordinate $coordinate)
     {
         $this->size = $coordinate;
+        $this->stream = new Stream();
     }
 
     public function getSize(): Coordinate
@@ -67,5 +70,10 @@ class ScreenManager
         }
 
         return $result;
+    }
+
+    public function getStream(): Stream
+    {
+        return $this->stream;
     }
 }
