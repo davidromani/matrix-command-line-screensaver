@@ -4,6 +4,7 @@ namespace App\Command;
 
 use App\Manager\ScreenManager;
 use App\Model\Coordinate;
+use App\Model\Stream;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Cursor;
 use Symfony\Component\Console\Input\InputInterface;
@@ -12,7 +13,7 @@ use Symfony\Component\Console\Terminal;
 
 class MatrixCommand extends Command
 {
-    const MICRO_WAIT =  25000;  // 1.000.000 = 1.00 second
+    const MICRO_WAIT =  50000;  // 1.000.000 = 1.00 second
                                 //   500.000 = 0.50 second
                                 //   250.000 = 0.25 second
 
@@ -53,8 +54,12 @@ class MatrixCommand extends Command
 //            }
 //        }
 
-        $cursor->moveToPosition(1, $this->screenManager->getScreenHeight() - 2);
-        $output->writeLn('Stream: '.$this->screenManager->getStream());
+        /** @var Stream $stream */
+        foreach ($this->screenManager->getSm()->getStreams() as $stream) {
+            $cursor->moveToPosition($stream->getPosition()->getX(), $stream->getPosition()->getY());
+            $output->writeLn('Stream: '.$stream);
+            usleep(self::MICRO_WAIT);
+        }
 
         return Command::SUCCESS;
     }

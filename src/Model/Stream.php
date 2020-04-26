@@ -9,6 +9,7 @@ class Stream
 
     private int $length;
     private array $string;
+    private Coordinate $position;
 
     /**
      * Methods
@@ -16,6 +17,7 @@ class Stream
 
     public function __construct()
     {
+        $this->position = new Coordinate(0, 0);
         $this->length = rand(self::MIN_LENGTH, self::MAX_LENGTH);
         $this->string = [];
         $this->buildStream();
@@ -57,6 +59,18 @@ class Stream
     public function addCharacter(string $character): self
     {
         $this->string[] = $character;
+
+        return $this;
+    }
+
+    public function getPosition(): Coordinate
+    {
+        return $this->position;
+    }
+
+    public function setPosition(Coordinate $position): self
+    {
+        $this->position = $position;
 
         return $this;
     }
