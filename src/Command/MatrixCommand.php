@@ -9,15 +9,19 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Terminal;
 
-class TestCommand extends Command
+class MatrixCommand extends Command
 {
-    protected static $defaultName = 'app:test';
+    const MICRO_WAIT = 250.000; // 1.000.000 = 1 second
+                                //   500.000 = 0.5 second
+                                //   250.000 = 0.25 second
+
+    protected static $defaultName = 'app:matrix';
 
     protected function configure()
     {
       $this
-          ->setDescription('Testing command outputs.')
-          ->setHelp('This command allows you to know how many cols & rows are in your current terminal window.')
+          ->setDescription('Starts a Matrix video effect in current terminal window.')
+          ->setHelp('This command starts a Matrix video effect in the current terminal window that can act as a console screen saver.')
       ;
     }
 
@@ -30,10 +34,12 @@ class TestCommand extends Command
 
         $cursor->moveToPosition(1, 0);
         $output->writeLn('Current Teminal size '. $terminalCoordinates);
+        usleep(self::MICRO_WAIT);
+
         $cursor->moveToPosition(1, 20);
         $cursorCoordinates = Coordinate::buildFromArray($cursor->getCurrentPosition());
         $output->writeLn('Current Cursor coordinates '. $cursorCoordinates);
 
-        return Command::SUCCESS; // or return Command::FAILURE if it fails;
+        return Command::SUCCESS; // or return Command::FAILURE;
     }
 }
