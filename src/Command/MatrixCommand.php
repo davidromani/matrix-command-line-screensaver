@@ -43,8 +43,8 @@ class MatrixCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $cursor = new Cursor($output);
-        $cursor->clearScreen();
+//        $cursor = new Cursor($output);
+//        $cursor->clearScreen();
 
 //        for ($y = 0; $y <= ($this->screenManager->getScreenHeight() / 2); $y++) {
 //            for ($x = 0; $x <= ($this->screenManager->getScreenWidth() / 2); $x++) {
@@ -54,12 +54,7 @@ class MatrixCommand extends Command
 //            }
 //        }
 
-        /** @var Stream $stream */
-        foreach ($this->screenManager->getSm()->getStreams() as $stream) {
-            $cursor->moveToPosition($stream->getPosition()->getX(), $stream->getPosition()->getY());
-            $output->writeLn('Stream: '.$stream);
-            usleep(self::MICRO_WAIT);
-        }
+        $this->screenManager->drawStreams($output);
 
         return Command::SUCCESS;
     }
