@@ -15,10 +15,9 @@ class TestCommand extends Command
 
     protected function configure()
     {
-      $this
-          ->setDescription('Testing command outputs.')
-          ->setHelp('This command allows you to know how many cols & rows are in your current terminal window.')
-      ;
+        $this
+            ->setDescription('Testing command outputs.')
+            ->setHelp('This command allows you to know how many cols & rows are in your current terminal window.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -29,10 +28,10 @@ class TestCommand extends Command
         $cursor->clearScreen();
 
         $cursor->moveToPosition(1, 0);
-        $output->writeLn('Current Teminal size '. $terminalCoordinates);
+        $output->writeLn('Current Teminal size '.$terminalCoordinates);
         $cursor->moveToPosition(1, $terminalCoordinates->getY() - 2);
         $cursorCoordinates = Coordinate::buildFromArray($cursor->getCurrentPosition());
-        $output->writeLn('Current Cursor coordinates '. $cursorCoordinates);
+        $output->writeLn('Current Cursor coordinates '.$cursorCoordinates);
 
         return Command::SUCCESS; // or return Command::FAILURE if it fails;
     }

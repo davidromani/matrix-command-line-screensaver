@@ -12,9 +12,9 @@ class ScreenManager
      * Methods
      */
 
-    public function __construct()
+    public function __construct(Coordinate $coordinate)
     {
-        $this->size = new Coordinate(0, 0);
+        $this->size = $coordinate;
     }
 
     public function getSize(): Coordinate
@@ -27,5 +27,25 @@ class ScreenManager
         $this->size = $size;
 
         return $this;
+    }
+
+    public function getHalfScreenSizeWidth(): int
+    {
+        $result = 1;
+        if ($this->getSize()->getX() > 0) {
+            $result = intval($this->getSize()->getX() / 2);
+        }
+
+        return $result;
+    }
+
+    public function getHalfScreenSizeHeight(): int
+    {
+        $result = 1;
+        if ($this->getSize()->getY() > 0) {
+            $result = intval($this->getSize()->getY() / 2);
+        }
+
+        return $result;
     }
 }
