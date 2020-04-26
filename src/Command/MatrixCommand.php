@@ -12,7 +12,7 @@ use Symfony\Component\Console\Terminal;
 
 class MatrixCommand extends Command
 {
-    const MICRO_WAIT = 1250000; // 1.000.000 = 1.00 second
+    const MICRO_WAIT =  25000;  // 1.000.000 = 1.00 second
                                 //   500.000 = 0.50 second
                                 //   250.000 = 0.25 second
 
@@ -40,20 +40,19 @@ class MatrixCommand extends Command
         $this->screenManager = new ScreenManager($terminalCoordinates);
     }
 
-
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $cursor = new Cursor($output);
         $cursor->clearScreen();
 
-        $cursor->moveToPosition($this->screenManager->getHalfScreenSizeWidth(), 0);
-        $output->writeLn('Current Teminal size '.$this->screenManager->getSize());
-        usleep(self::MICRO_WAIT);
+        for ($y = 0; $y <= $this->screenManager->getScreenHeight(); $y++) {
+            for ($x = 0; $x <= $this->screenManager->getScreenWidth(); $x++) {
+                $cursor->moveToPosition($x, $y);
+                $output->write($y);
+                usleep(self::MICRO_WAIT);
+            }
+        }
 
-        $cursor->moveToPosition(1, $this->screenManager->getHalfScreenSizeHeight());
-        $cursorCoordinates = Coordinate::buildFromArray($cursor->getCurrentPosition());
-        $output->writeLn('Current Cursor coordinates '.$cursorCoordinates);
-
-        return Command::SUCCESS; // or return Command::FAILURE;
+        return Command::SUCCESS;
     }
 }

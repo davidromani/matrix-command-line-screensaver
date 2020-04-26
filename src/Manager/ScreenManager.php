@@ -29,6 +29,26 @@ class ScreenManager
         return $this;
     }
 
+    public function getScreenWidth(): int
+    {
+        $result = 1;
+        if ($this->getSize()->getX() > 0) {
+            $result = $this->getSize()->getX();
+        }
+
+        return $result;
+    }
+
+    public function getScreenHeight(): int
+    {
+        $result = 1;
+        if ($this->getSize()->getY() > 0) {
+            $result = $this->getSize()->getY();
+        }
+
+        return $result;
+    }
+
     public function getHalfScreenSizeWidth(): int
     {
         $result = 1;
