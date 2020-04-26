@@ -4,16 +4,14 @@ namespace App\Command;
 
 use App\Manager\ScreenManager;
 use App\Model\Coordinate;
-use App\Model\Stream;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Cursor;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Terminal;
 
 class MatrixCommand extends Command
 {
-    const MICRO_WAIT =  50000;  // 1.000.000 = 1.00 second
+    const MICRO_WAIT =  500000; // 1.000.000 = 1.00 second
                                 //   500.000 = 0.50 second
                                 //   250.000 = 0.25 second
 
@@ -43,18 +41,11 @@ class MatrixCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-//        $cursor = new Cursor($output);
-//        $cursor->clearScreen();
-
-//        for ($y = 0; $y <= ($this->screenManager->getScreenHeight() / 2); $y++) {
-//            for ($x = 0; $x <= ($this->screenManager->getScreenWidth() / 2); $x++) {
-//                $cursor->moveToPosition($x, $y);
-//                $output->write($y);
-//                usleep(self::MICRO_WAIT);
-//            }
-//        }
-
-        $this->screenManager->drawStreams($output);
+        for ($y = 0; $y <= ($this->screenManager->getScreenHeight() / 2); $y++) {
+            $this->screenManager->drawStreams($output);
+            $this->screenManager->moveStreamsStepForward();
+            usleep(self::MICRO_WAIT);
+        }
 
         return Command::SUCCESS;
     }

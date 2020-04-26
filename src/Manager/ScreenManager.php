@@ -2,7 +2,6 @@
 
 namespace App\Manager;
 
-use App\Command\MatrixCommand;
 use App\Model\Coordinate;
 use App\Model\Stream;
 use Symfony\Component\Console\Cursor;
@@ -76,18 +75,6 @@ class ScreenManager
         return $result;
     }
 
-    public function getSm(): StreamsManager
-    {
-        return $this->sm;
-    }
-
-    public function setSm(StreamsManager $sm): self
-    {
-        $this->sm = $sm;
-
-        return $this;
-    }
-
     public function drawStreams(OutputInterface $output)
     {
         $cursor = new Cursor($output);
@@ -102,7 +89,16 @@ class ScreenManager
                 $output->write($char);
                 ++$yDelta;
             }
-            usleep(MatrixCommand::MICRO_WAIT);
+        }
+    }
+
+    public function moveStreamsStepForward()
+    {
+        /** @var Stream $stream */
+        foreach ($this->sm->getStreams() as $stream) {
+            $currentStreamCoordinates = $stream->getPosition();
+            $currentStreamCoordinates->setY($currentStreamCoordinates->getY() + 1);
+            $stream->setPosition($currentStreamCoordinates);
         }
     }
 }
