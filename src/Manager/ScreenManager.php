@@ -94,9 +94,16 @@ class ScreenManager
 
     public function moveStreamsStepForward()
     {
+        $this->sm->moveStreamsStepForward();
+    }
+
+    public function refreshDeadStreams()
+    {
         /** @var Stream $stream */
         foreach ($this->sm->getStreams() as $stream) {
-            $stream->moveStringDown();
+            if ($stream->getPosition()->getY() > $this->getScreenHeight()) {
+                $this->sm->refreshDeadStream($stream, $this->size);
+            }
         }
     }
 }

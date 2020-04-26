@@ -65,4 +65,20 @@ class StreamsManager
             $stream->setPosition($coordinate);
         }
     }
+
+    public function moveStreamsStepForward()
+    {
+        /** @var Stream $stream */
+        foreach ($this->getStreams() as $stream) {
+            $stream->moveStringDown();
+        }
+    }
+
+    public function refreshDeadStream(Stream $stream, Coordinate $maxSizes)
+    {
+        $stream->refresh();
+        $newPosition = new Coordinate(0, 0);
+        $newPosition->setX(rand(0, $maxSizes->getX()));
+        $stream->setPosition($newPosition);
+    }
 }

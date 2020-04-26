@@ -85,6 +85,15 @@ class Stream
         return $this;
     }
 
+    public function refresh(): self
+    {
+        $this->setLength(rand(self::MIN_LENGTH, self::MAX_LENGTH));
+        $this->string = [];
+        $this->buildStream();
+
+        return $this;
+    }
+
     public function __toString(): string
     {
         return implode('', $this->string);

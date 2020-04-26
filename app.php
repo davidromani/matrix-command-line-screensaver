@@ -14,6 +14,6 @@ $matrixCommand = new MatrixCommand();
 $application = new Application();
 $application->add($testCommand);
 $application->add($matrixCommand);
-$application->setDefaultCommand($testCommand->getName());
+$application->setDefaultCommand($matrixCommand->getName());
 
 $application->run();

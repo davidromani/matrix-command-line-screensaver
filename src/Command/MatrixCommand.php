@@ -45,6 +45,7 @@ class MatrixCommand extends Command
             $this->screenManager->drawStreams($output);
             $this->screenManager->moveStreamsStepForward();
             usleep(self::MICRO_WAIT);
+            $this->screenManager->refreshDeadStreams();
         }
 
         return Command::SUCCESS;
