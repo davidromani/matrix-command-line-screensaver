@@ -75,18 +75,17 @@ class ScreenManager
         return $result;
     }
 
-    public function drawStreams(OutputInterface $output)
+    public function drawStreams(OutputInterface $output, Cursor $cursor)
     {
-        $cursor = new Cursor($output);
-        $cursor->clearScreen();
-
         /** @var Stream $stream */
         foreach ($this->sm->getStreams() as $stream) {
             $yDelta = 0;
             /** @var string $char */
             foreach ($stream->getString() as $char) {
-                $cursor->moveToPosition($stream->getPosition()->getX(), $stream->getPosition()->getY() + $yDelta);
-                $output->write($char);
+                if ($stream->getPosition()->getY() + $yDelta > 0) {
+                    $cursor->moveToPosition($stream->getPosition()->getX(), $stream->getPosition()->getY() + $yDelta);
+                    $output->write($char);
+                }
                 ++$yDelta;
             }
         }

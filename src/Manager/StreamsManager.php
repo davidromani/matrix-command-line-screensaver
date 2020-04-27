@@ -77,7 +77,7 @@ class StreamsManager
     public function refreshDeadStream(Stream $stream, Coordinate $maxSizes)
     {
         $stream->refresh();
-        $newPosition = new Coordinate(0, 0);
+        $newPosition = new Coordinate(1 - $stream->getLength(), 0);
         $newPosition->setX(rand(0, $maxSizes->getX()));
         $stream->setPosition($newPosition);
     }
