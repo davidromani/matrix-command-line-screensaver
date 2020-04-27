@@ -44,8 +44,8 @@ class MatrixCommand extends Command
         for ($y = 0; $y <= ($this->screenManager->getScreenHeight() / 2); $y++) {
             $this->screenManager->drawStreams($output);
             $this->screenManager->moveStreamsStepForward();
-            usleep(self::MICRO_WAIT);
             $this->screenManager->refreshDeadStreams();
+            usleep(self::MICRO_WAIT);
         }
 
         return Command::SUCCESS;
