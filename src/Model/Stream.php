@@ -5,7 +5,7 @@ namespace App\Model;
 class Stream
 {
     const MIN_LENGTH = 5;
-    const MAX_LENGTH = 30;
+    const MAX_LENGTH = 20;
 
     private int $length;
     private array $string;
@@ -78,7 +78,7 @@ class Stream
     {
         $newStringTailChar = $this->getRandomCharacter();
         $this->addCharacter($newStringTailChar);
-        $this->position->setY($this->position->getY() + 1);
+        $this->position->incY();
         array_shift($this->string);
 
         return $this;

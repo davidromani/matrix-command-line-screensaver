@@ -91,8 +91,9 @@ class ScreenManager
         $yDelta = 0;
         /** @var string $char */
         foreach ($stream->getString() as $char) {
-            if ($stream->getPosition()->getY() + $yDelta >= 0 && $stream->getPosition()->getY() + $yDelta) {
-                $cursor->moveToPosition($stream->getPosition()->getX(), $stream->getPosition()->getY() + $yDelta);
+            $y = $stream->getPosition()->getY() + $yDelta;
+            if ($y >= 0 && $y < $this->getScreenHeight()) {
+                $cursor->moveToPosition($stream->getPosition()->getX(), $y);
                 $output->write($char);
             }
             ++$yDelta;

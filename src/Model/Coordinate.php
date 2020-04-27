@@ -52,6 +52,13 @@ class Coordinate
         return $this;
     }
 
+    public function incY(): self
+    {
+        ++$this->y;
+
+        return $this;
+    }
+
     public function __toString(): string
     {
         return '[x:'.$this->x.' , y:'.$this->y.']';
