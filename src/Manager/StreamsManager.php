@@ -14,9 +14,8 @@ class StreamsManager
     private array $streams;
 
     /**
-     * Methods
+     * StreamsManager constructor.
      */
-
     public function __construct()
     {
         $this->length = rand(self::MIN_LENGTH, self::MAX_LENGTH);
@@ -61,24 +60,19 @@ class StreamsManager
     {
         /** @var Stream $stream */
         foreach ($this->getStreams() as $stream) {
-            $coordinate = new Coordinate(rand(0, $maxCol), rand(0, $maxRow));
+            $coordinate = new Coordinate(rand(0, $maxCol), rand(1 - $stream->getLength(), $maxRow));
             $stream->setPosition($coordinate);
         }
     }
 
-    public function moveStreamsStepForward()
+    public function moveStreamStepForward(Stream $stream)
     {
-        /** @var Stream $stream */
-        foreach ($this->getStreams() as $stream) {
-            $stream->moveStringDown();
-        }
+        $stream->moveStringDown();
     }
 
-    public function refreshDeadStream(Stream $stream, Coordinate $maxSizes)
+    public function refreshDeadStream(Stream $stream, Coordinate $screenSize)
     {
         $stream->refresh();
-        $newPosition = new Coordinate(1 - $stream->getLength(), 0);
-        $newPosition->setX(rand(0, $maxSizes->getX()));
-        $stream->setPosition($newPosition);
+        $stream->setPosition(new Coordinate(rand(0, $screenSize->getX()), 1 - $stream->getLength()));
     }
 }

@@ -8,9 +8,11 @@ class Coordinate
     private int $y;
 
     /**
-     * Methods
+     * Coordinate constructor.
+     *
+     * @param int $x
+     * @param int $y
      */
-
     public function __construct(int $x, int $y)
     {
         $this->x = $x;

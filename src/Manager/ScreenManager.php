@@ -13,9 +13,10 @@ class ScreenManager
     private StreamsManager $sm;
 
     /**
-     * Methods
+     * ScreenManager constructor.
+     *
+     * @param Coordinate $coordinate
      */
-
     public function __construct(Coordinate $coordinate)
     {
         $this->size = $coordinate;
@@ -75,34 +76,38 @@ class ScreenManager
         return $result;
     }
 
-    public function drawStreams(OutputInterface $output, Cursor $cursor)
+    public function handleStreams(OutputInterface $output, Cursor $cursor)
     {
         /** @var Stream $stream */
         foreach ($this->sm->getStreams() as $stream) {
-            $yDelta = 0;
-            /** @var string $char */
-            foreach ($stream->getString() as $char) {
-                if ($stream->getPosition()->getY() + $yDelta > 0) {
-                    $cursor->moveToPosition($stream->getPosition()->getX(), $stream->getPosition()->getY() + $yDelta);
-                    $output->write($char);
-                }
-                ++$yDelta;
-            }
+            $this->drawStream($output, $cursor, $stream);
+            $this->moveStreamStepForward($stream);
+            $this->refreshIfDeadStream($stream);
         }
     }
 
-    public function moveStreamsStepForward()
+    public function drawStream(OutputInterface $output, Cursor $cursor, Stream $stream)
     {
-        $this->sm->moveStreamsStepForward();
+        $yDelta = 0;
+        /** @var string $char */
+        foreach ($stream->getString() as $char) {
+            if ($stream->getPosition()->getY() + $yDelta >= 0 && $stream->getPosition()->getY() + $yDelta) {
+                $cursor->moveToPosition($stream->getPosition()->getX(), $stream->getPosition()->getY() + $yDelta);
+                $output->write($char);
+            }
+            ++$yDelta;
+        }
     }
 
-    public function refreshDeadStreams()
+    public function moveStreamStepForward(Stream $stream)
     {
-        /** @var Stream $stream */
-        foreach ($this->sm->getStreams() as $stream) {
-            if ($stream->getPosition()->getY() > $this->getScreenHeight()) {
-                $this->sm->refreshDeadStream($stream, $this->size);
-            }
+        $this->sm->moveStreamStepForward($stream);
+    }
+
+    public function refreshIfDeadStream(Stream $stream)
+    {
+        if ($stream->getPosition()->getY() > $this->getScreenHeight()) {
+            $this->sm->refreshDeadStream($stream, $this->size);
         }
     }
 }

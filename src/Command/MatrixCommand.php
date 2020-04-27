@@ -12,7 +12,7 @@ use Symfony\Component\Console\Terminal;
 
 class MatrixCommand extends Command
 {
-    const MICRO_WAIT =  25000;  // 1.000.000 = 1.00 second
+    const MICRO_WAIT = 25000;   // 1.000.000 = 1.00 second
                                 //   500.000 = 0.50 second
                                 //   250.000 = 0.25 second
 
@@ -46,9 +46,7 @@ class MatrixCommand extends Command
         $cursor->clearScreen();
         $cursor->hide();
         for ($index = 0; $index <= $this->screenManager->getScreenWidth(); $index++) {
-            $this->screenManager->drawStreams($output, $cursor);
-            $this->screenManager->moveStreamsStepForward();
-            $this->screenManager->refreshDeadStreams();
+            $this->screenManager->handleStreams($output, $cursor);
             usleep(self::MICRO_WAIT);
         }
         $cursor->moveToPosition(0, $this->screenManager->getScreenHeight() - 2);

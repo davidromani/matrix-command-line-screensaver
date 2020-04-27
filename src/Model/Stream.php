@@ -12,9 +12,8 @@ class Stream
     private Coordinate $position;
 
     /**
-     * Methods
+     * Stream constructor.
      */
-
     public function __construct()
     {
         $this->position = new Coordinate(0, 0);
