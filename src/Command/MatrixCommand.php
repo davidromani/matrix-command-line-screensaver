@@ -48,6 +48,7 @@ class MatrixCommand extends Command
         for ($index = 0; $index <= $this->screenManager->getScreenWidth(); $index++) {
             $this->screenManager->handleStreams($output, $cursor);
             usleep(self::MICRO_WAIT);
+            $cursor->clearScreen();
         }
         $cursor->moveToPosition(0, $this->screenManager->getScreenHeight() - 2);
         $cursor->clearLineAfter();
