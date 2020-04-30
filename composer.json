@@ -1,18 +1,21 @@
 {
-    "name": "flux/symfony-console-sandbox",
-    "description": "A proof of concept based on symfony/console component.",
+    "name": "davidromani/matrix-command-line-screensaver",
+    "description": "A console command to display a text screensaver animation like Matrix movie.",
     "type": "project",
-    "license": "proprietary",
+    "license": "MIT",
+    "homepage": "https://www.flux.cat/en/home",
+    "keywords": ["symfony", "console", "matrix", "screensaver", "command-line-tool"],
     "authors": [
         {
             "name": "David Romaní",
-            "email": "david@flux.cat"
+            "email": "david@flux.cat",
+            "role": "Developer"
         }
     ],
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": "^7.4.0",
+        "php": "^7.4",
         "symfony/console": "5.1.x-dev"
     },
     "config": {
